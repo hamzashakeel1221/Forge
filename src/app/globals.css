@@ -1,0 +1,406 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+:root {
+  --scroll-progress: 0;
+  color-scheme: dark;
+}
+
+html {
+  background: #07060d;
+}
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+body {
+  color: #f4f3f8;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.has-cursor,
+.has-cursor * {
+  cursor: none !important;
+}
+::selection {
+  background: #7c5cff;
+  color: white;
+}
+
+/* ───── type ───── */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.55);
+  margin-bottom: 1.25rem;
+}
+.hero-title {
+  font-size: clamp(4rem, 15vw, 14rem);
+  line-height: 0.85;
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  background: linear-gradient(180deg, #ffffff 30%, rgb(255 255 255 / 0.35));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 80px rgb(124 92 255 / 0.25);
+}
+.hero-title .char {
+  background: linear-gradient(180deg, #ffffff 35%, rgb(255 255 255 / 0.4));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.section-title {
+  font-size: clamp(2.6rem, 6.5vw, 6.5rem);
+  line-height: 0.92;
+  font-weight: 650;
+  letter-spacing: -0.045em;
+}
+.section-title .word,
+.hero-title .word {
+  padding-bottom: 0.08em;
+}
+.section-body {
+  margin-top: 1.5rem;
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  line-height: 1.6;
+  color: rgb(255 255 255 / 0.68);
+  max-width: 32rem;
+}
+.items-end .section-body {
+  margin-left: auto;
+}
+.items-center .section-body {
+  margin-left: auto;
+  margin-right: auto;
+}
+.panel {
+  text-shadow: 0 2px 30px rgb(0 0 0 / 0.6);
+}
+
+.stat-value {
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.45);
+}
+
+/* ───── hero scroll hint ───── */
+.scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  translate: -50% 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.5);
+}
+.scroll-hint i {
+  width: 1px;
+  height: 56px;
+  background: linear-gradient(transparent, white);
+  animation: drip 1.8s ease-in-out infinite;
+  transform-origin: top;
+}
+@keyframes drip {
+  0% { transform: scaleY(0); opacity: 1; }
+  60% { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+
+/* ───── nav ───── */
+.logo {
+  font-weight: 700;
+  letter-spacing: 0.45em;
+  font-size: 0.95rem;
+}
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  color: rgb(255 255 255 / 0.5);
+  transition: color 0.3s, background 0.3s;
+}
+.nav-link:hover {
+  color: white;
+}
+.nav-link-active {
+  color: white;
+  background: rgb(255 255 255 / 0.08);
+  backdrop-filter: blur(10px);
+}
+.cart-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.6rem 0.55rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.15);
+  background: rgb(255 255 255 / 0.05);
+  backdrop-filter: blur(12px);
+  font-size: 0.85rem;
+}
+.cart-count {
+  display: grid;
+  place-items: center;
+  min-width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 999px;
+  background: white;
+  color: black;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.progress-bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, #7c5cff, #ff4d8d, #ffd166);
+  transform-origin: left;
+  transform: scaleX(var(--scroll-progress));
+}
+
+/* ───── 3D labels ───── */
+.feature-label {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  width: 220px;
+  padding: 0.8rem 1rem;
+  border-radius: 14px;
+  background: rgb(10 10 16 / 0.55);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  backdrop-filter: blur(14px);
+  transition: opacity 0.2s;
+  will-change: opacity, transform;
+}
+.feature-dot {
+  margin-top: 0.35rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  background: white;
+  box-shadow: 0 0 12px white, 0 0 30px #7c5cff;
+}
+.feature-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.feature-body {
+  margin-top: 0.2rem;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: rgb(255 255 255 / 0.6);
+}
+
+.product-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  width: 180px;
+  text-align: center;
+  white-space: nowrap;
+}
+.chip-tag {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: black;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  margin-bottom: 0.3rem;
+}
+.chip-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.chip-meta {
+  font-size: 0.75rem;
+  color: rgb(255 255 255 / 0.55);
+}
+.chip-btn {
+  margin-top: 0.5rem;
+  font-size: 0.7rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.25);
+  background: rgb(255 255 255 / 0.06);
+  backdrop-filter: blur(8px);
+  transition: background 0.3s, color 0.3s;
+}
+.chip-btn:hover {
+  background: white;
+  color: black;
+}
+
+/* ───── configurator ───── */
+.colorway-name {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.swatch {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 2px solid rgb(255 255 255 / 0.15);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.4s;
+}
+.swatch:hover {
+  transform: scale(1.12);
+}
+.swatch-active {
+  border-color: white;
+  transform: scale(1.18);
+}
+
+/* ───── CTA ───── */
+.price {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+}
+.cta {
+  padding: 1rem 2.4rem;
+  border-radius: 999px;
+  font-weight: 600;
+  color: #050507;
+  font-size: 1rem;
+}
+.cta-ghost {
+  padding: 1rem 2rem;
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.25);
+  background: rgb(255 255 255 / 0.05);
+  backdrop-filter: blur(10px);
+}
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  translate: -50% 0;
+  z-index: 60;
+  padding: 0.85rem 1.4rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.95);
+  color: black;
+  font-size: 0.9rem;
+  box-shadow: 0 20px 60px rgb(0 0 0 / 0.4);
+}
+
+/* ───── cursor ───── */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 100;
+  border-radius: 999px;
+  mix-blend-mode: difference;
+}
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: white;
+}
+.cursor-ring {
+  width: 38px;
+  height: 38px;
+  margin: -19px 0 0 -19px;
+  border: 1px solid white;
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), height 0.35s cubic-bezier(0.16, 1, 0.3, 1), margin 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s;
+}
+.cursor-ring.cursor-hover {
+  width: 72px;
+  height: 72px;
+  margin: -36px 0 0 -36px;
+  background: white;
+}
+html:not(.has-cursor) .cursor-dot,
+html:not(.has-cursor) .cursor-ring {
+  display: none;
+}
+
+/* ───── loader ───── */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  background: #050507;
+}
+.loader-brand {
+  font-weight: 700;
+  letter-spacing: 0.6em;
+  font-size: 1.1rem;
+  padding-left: 0.6em;
+}
+.loader-bar {
+  width: 220px;
+  height: 1px;
+  background: rgb(255 255 255 / 0.12);
+  overflow: hidden;
+}
+.loader-bar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #7c5cff, #ff4d8d);
+  transform-origin: left;
+}
+.loader-pct {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: rgb(255 255 255 / 0.5);
+}
+
+@media (max-width: 768px) {
+  .feature-label {
+    width: 160px;
+    padding: 0.6rem 0.75rem;
+  }
+  .feature-body {
+    display: none;
+  }
+}
