@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "preview": "npm run build && wrangler dev",
+    "cf-deploy": "wrangler deploy"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -36,6 +36,7 @@
     "@types/three": "^0.187.0",
     "postcss": "^8.5.33",
     "tailwindcss": "^4.3.5",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wrangler": "^4.168.0"
   }
 }

@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Must match the Worker name in the Cloudflare dashboard (it defaults to the repo name).
+  "name": "forge",
+  "compatibility_date": "2026-11-01",
+  // The static site produced by `npm run build`. There is no Worker script: Cloudflare serves
+  // these files directly from its edge.
+  "assets": {
+    "directory": "./out",
+    "not_found_handling": "404-page"
+  }
+}

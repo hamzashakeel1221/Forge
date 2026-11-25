@@ -39,7 +39,8 @@ It is built as a **reusable template**. Brand, product, copy, colourways, featur
 ```bash
 npm install
 npm run dev        # http://localhost:3000
-npm run build      # production build
+npm run build      # static site in ./out
+npm run preview    # build, then serve ./out the way Cloudflare will (Wrangler)
 npm run typecheck
 ```
 
@@ -81,15 +82,19 @@ Every mesh in the GLB becomes an explodable part, and the hero particle galaxy s
 - **DOM over WebGL.** Each section is a tall `<section>` with a CSS-sticky panel, so text is real, selectable, accessible HTML layered above the fixed canvas.
 - **Only what is on screen runs.** Scenes hide themselves outside their range, physics only simulates while visible, and `PerformanceMonitor` lowers the pixel ratio on slower GPUs. Mobile gets fewer particles and a wider camera.
 
-## Deploy
+## Deploy to Cloudflare (Workers Builds from GitHub)
 
-The easiest path is Vercel: push this repo to GitHub, then import it at [vercel.com/new](https://vercel.com/new). No environment variables are needed.
+Forge has no server code, so it builds to a plain static site (`./out`) that Cloudflare serves straight from its edge using Workers static assets (`wrangler.jsonc`). No database or environment variables are needed.
 
-For any static host, build a static export:
+1. In the Cloudflare dashboard open **Workers & Pages**, then **Create application**, then **Import a repository** (Git), and pick this repo.
+2. Leave the Worker name as `forge` (it must match `name` in `wrangler.jsonc`).
+3. Keep the defaults: build command `npm run build`, deploy command `npx wrangler deploy` (`npm run cf-deploy` does the same).
+4. Click **Save and Deploy**. Every push to `main` redeploys automatically.
+5. Custom domain: open the Worker, then **Settings**, **Domains & Routes**, **Add**, **Custom domain**.
 
-```bash
-STATIC_EXPORT=1 npm run build   # outputs ./out
-```
+To deploy from your own machine instead: `npx wrangler login`, then `npm run build && npm run cf-deploy`.
+
+The site is plain static files, so it also works on Vercel, Netlify, GitHub Pages or any static host.
 
 ## Turning it into revenue
 
@@ -100,6 +105,8 @@ STATIC_EXPORT=1 npm run build   # outputs ./out
 ## Project structure
 
 ```
+wrangler.jsonc          Cloudflare Workers static-assets config
+public/_headers         Long-lived caching for hashed build files
 src/
   app/                  Next.js app router (layout, page, global CSS)
   config/site.config.ts All brand, product, copy and scene settings
